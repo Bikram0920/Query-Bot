@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import "./app.css";
 import logo from "./assets/chatbot.png";
 import add from "./assets/add-30.png";
@@ -24,10 +24,16 @@ function App() {
     newChat,
   } = useContext(Context);
 
-  const handlePrompt = async (prompt) =>{
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      onSent();
+    }
+  };
+
+  const handlePrompt = async (prompt) => {
     setRecentPrompt(prompt);
     await onSent(prompt);
-  }
+  };
 
   return (
     <>
@@ -38,15 +44,15 @@ function App() {
               <img src={logo} alt="" className="logo" />
               <span>QueryBot</span>
             </div>
-            <button onClick={()=>newChat()}>
+            <button onClick={() => newChat()}>
               <img src={add} alt="" />
               <span>New Chat</span>
             </button>
             <div className="queries">
-              {previousPrompts?.map((item,index) => (
-                <button onClick={()=>handlePrompt(item)} key={index}>
+              {previousPrompts?.map((item, index) => (
+                <button onClick={() => handlePrompt(item)} key={index}>
                   <img src={message} alt="" />
-                  <span>{item.slice(0,18)}</span>
+                  <span>{item.slice(0, 18)}</span>
                 </button>
               ))}
             </div>
@@ -70,7 +76,7 @@ function App() {
           {!showResult ? (
             <>
               <div className="chats">
-                <div className="user">
+                {/* <div className="user">
                   <img src={avatar} alt="" />
                   <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -83,6 +89,11 @@ function App() {
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Ullam, eum.
                   </p>
+                </div> */}
+                <div className="preLoad">
+                  {/* <img src="/src/assets/chatbot.png" alt="" /> */}
+                  <p>Hello, User</p>
+                  <p>How can I help you today?</p>
                 </div>
               </div>
             </>
@@ -105,7 +116,10 @@ function App() {
                     </>
                   ) : (
                     <>
-                      <p style={{ whiteSpace: 'pre-line' }} dangerouslySetInnerHTML={{ __html: resultData }} />
+                      <p
+                        style={{ whiteSpace: "pre-line" }}
+                        dangerouslySetInnerHTML={{ __html: resultData }}
+                      />
                     </>
                   )}
                 </div>
@@ -119,6 +133,7 @@ function App() {
                 value={input}
                 type="text"
                 placeholder="Send a message"
+                onKeyDown={handleKeyPress}
               />
               <img onClick={() => onSent()} src={send} alt="" />
             </div>

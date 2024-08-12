@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@300;400&display=swap');
 
 *{
   margin: 0;
@@ -119,6 +120,28 @@ body{
     overflow-y: scroll;
     scroll-behavior: smooth;
     width: 100%;
+
+    .preLoad{
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      padding-top: 50px;
+      justify-content: center;
+      align-items: center;
+      /* gap: 5px; */
+
+      p{
+        font-size: 5rem;
+        background: linear-gradient(45deg, #5b4bbf, #f06262);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-family:"Lato", sans-serif;
+        font-weight: bolder;
+        /* text-fill-color: transparent; */
+      }
+    }
 
     img{
       height: 5rem;
